@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="lib\bootstrap.css">
+    <link rel="stylesheet" href="lib\style.css">
+</head>
+
+<body>
+    <canvas id="myCanvas" resize hidpi="off" style="background-color: black"></canvas>
+
+
+    <script src="lib\howler.js" charset="utf-8"></script>
+    <script src="lib\paper-full.js" charset="utf-8"></script>
+    <!-- Define inlined PaperScript associate it with myCanvas -->
+    <script type="text/paperscript" canvas="myCanvas">
+
+    var keyData = {
+        a : {
+            src: ['sounds/bubbles.mp3'],
+            color : "rgb(255,128,128)"
+        },
+        b : {
+            src: ['sounds/clay.mp3'],
+            color: "rgb(255,255,128)"
+        },
+        c : {
+            src: ['sounds/confetti.mp3'],
+            color: "rgb(128,255,128)"
+        },
+        d : {
+            src: ['sounds/corona.mp3'],
+            color: "rgb(0,255,128)"
+        },
+        e : {
+            src: ['sounds/dotted-spiral.mp3'],
+            color: "rgb(128,255,255)"
+        },
+        f : {
+            src: ['sounds/flash-1.mp3'],
+            color: "rgb(0,128,2555)"
+        },
+        g : {
+            src: ['sounds/flash-2.mp3'],
+            color: "rgb(255,128,192)"
+        },
+        h : {
+            src: ['sounds/flash-3.mp3'],
+            color: "red"
+        },
+        i : {
+            src: ['sounds/glimmer.mp3'],
+            color: "rgb(128,128,192)"
+        },
+        j : {
+            src: ['sounds/zig-zag.mp3'],
+            color: "rgb(0,0,200)"
+        },
+        k : {
+            src: ['sounds/moon.mp3'],
+            color: "pink"
+        },
+        l : {
+            src: ['sounds/pinwheel.mp3'],
+            color: "brown"
+        },
+        m : {
+            src: ['sounds/piston-1.mp3'],
+            color: "orange"
+        },
+        n : {
+            src: ['sounds/piston-2.mp3'],
+            color: "rgb(0,128,128)"
+        },
+        o : {
+            src: ['sounds/piston-3.mp3'],
+            color: "rgb(128,0,64)"
+        },
+        p : {
+            src: ['sounds/prism-1.mp3'],
+            color: "green"
+        },
+        q : {
+            src: ['sounds/prism-2.mp3'],
+            color: "blue"
+        },
+        r : {
+            src: ['sounds/prism-3.mp3'],
+            color: "rgb(128,0,255)"
+        },
+        s : {
+            src: ['sounds/splits.mp3'],
+            color: "rgb(128,64,0)"
+        },
+        t : {
+            src: ['sounds/squiggle.mp3'],
+            color: "rgb(0,64,64)"
+        },
+        u : {
+            src: ['sounds/strike.mp3'],
+            color: "rgb(0,0,64)"
+        },
+        v : {
+            src: ['sounds/suspension.mp3'],
+            color: "rgb(64,0,128)"
+        },
+        w : {
+            src: ['sounds/timer.mp3'],
+            color: "rgb(64,128,128)"
+        },
+        x : {
+            src: ['sounds/ufo.mp3'],
+            color: "rgb(128,128,64)"
+        },
+        y : {
+            src: ['sounds/veil.mp3'],
+            color: "rgb(64,0,64)"
+        },
+        z : {
+            src: ['sounds/wipe.mp3'],
+            color: "white"
+        },
+    }
+
+    var circles = [];
+
+    function onKeyDown(event) {
+        var maxPoint = new Point(view.size.width, view.size.heiht);
+        var point = maxPoint * Point.random();
+        var newCircle = new Path.Circle(point, 500)
+        newCircle.fillColor = keyData[event.key].color;
+        circles.push(newCircle);
+        //play sound and change color hue
+        console.log(keyData[event.key].src);
+        new Howl({src: keyData[event.key].src}).play();
+        //depend on keypress
+        //using keydata
+
+        //eg : var sound = new Howl( {
+        // src: ['']
+//    });
+// sound.play()
+    }
+
+    function onFrame(event) {
+        for(var i = 0; i < circles.length; i++) {
+            circles[i].fillColor.hue += 1;
+            circles[i].scale(0.9);
+        }
+    }
+
+
+    </script>
+</body>
+
+</html>
